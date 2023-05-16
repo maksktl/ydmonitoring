@@ -3,7 +3,7 @@ from uuid import UUID
 
 
 @dataclass
-class UserFullDto:
+class UserResult:
     id: UUID
     telegram_id: int
     telegram_username: str

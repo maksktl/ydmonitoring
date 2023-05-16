@@ -5,7 +5,7 @@ from uuid import UUID
 from src.persistence.models.user_model import UserModel
 from src.persistence.repository.user_repository import UserRepository
 from src.routers.payload.user_payload import UserPayload
-from src.routers.schemas import UserResult
+from src.services.results.user_result import UserResult
 
 logger = logging.getLogger(__name__)
 
