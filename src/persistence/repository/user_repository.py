@@ -17,15 +17,10 @@ class UserRepository:
 
     async def update(self, user: UserModel):
         await user.update(
-            name=user.name,
-            surname=user.surname,
-            middle_name=user.middle_name,
-            email=user.email,
             telegram_id=user.telegram_id,
-            telegram_url=user.telegram_url,
-            phone_number=user.phone_number,
-            bot_access=user.bot_access,
-            admin=user.admin
+            telegram_username=user.telegram_username,
+            firstname=user.firstname,
+            lastname=user.lastname,
         ).apply()
         return user
 

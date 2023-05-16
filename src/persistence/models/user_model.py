@@ -18,3 +18,4 @@ class UserModel(TimedBaseModel):
         self.telegram_username = payload.username
         self.firstname = payload.firstname
         self.lastname = payload.lastname
+        return self

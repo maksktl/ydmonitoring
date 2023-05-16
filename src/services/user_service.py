@@ -39,18 +39,19 @@ class UserService:
         return UserResult(user_model)
 
     async def create_user(self, user_dto: UserPayload) -> UserResult:
-        if user_dto.telegram_id and await self.__user_repository.get_by_tg_id_and_deleted_false(
-                user_dto.telegram_id):
-            raise Exception("User already exists")
-        user_model = UserModel()
+        user_model = await self.__user_repository.get_by_tg_id_and_deleted_false(
+            user_dto.telegram_id)
+        if not user_model:
+            user_model = UserModel()
+            return UserResult(await self.__user_repository.create(user_model))
         user_model.fill(user_dto)
-        return UserResult(await self.__user_repository.create(user_model))
+        return UserResult(await self.__user_repository.update(user_model))
 
     async def update_user(self, user_dto: UserPayload, id: UUID):
         user_model = await self.__user_repository.get_by_id(id)
         if not user_model:
             raise Exception("User not found")
-        return UserResult(await self.__user_repository.update(user_model.update_by_dto(user_dto)))
+        return UserResult(await self.__user_repository.update(user_model.fill(user_dto)))
 
     async def delete_user(self, id: UUID):
         user_model = await self.__user_repository.get_by_id(id)
