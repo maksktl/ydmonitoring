@@ -12,12 +12,10 @@ class UserRepository:
             cls._instance = UserRepository()
         return cls._instance
 
-    @staticmethod
-    async def create(user: UserModel):
+    async def create(self, user: UserModel):
         return await user.create()
 
-    @staticmethod
-    async def update(user: UserModel):
+    async def update(self, user: UserModel):
         await user.update(
             name=user.name,
             surname=user.surname,
@@ -31,17 +29,14 @@ class UserRepository:
         ).apply()
         return user
 
-    @staticmethod
-    async def get_by_id(id) -> Optional[UserModel]:
+    async def get_by_id(self, id) -> Optional[UserModel]:
         return await UserModel.get(id)
 
-    @staticmethod
-    async def get_by_tg_id_and_deleted_false(tg_id):
+    async def get_by_tg_id_and_deleted_false(self, tg_id):
         result = await UserModel.query.where((UserModel.telegram_id == tg_id) &
                                              (UserModel.deleted == False)).gino.first()
         return result
 
-    @staticmethod
-    async def get_all_by_deleted_false():
+    async def get_all_by_deleted_false(self, ):
         result = await UserModel.query.where((UserModel.deleted == False)).gino.all()
         return result
