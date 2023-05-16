@@ -7,7 +7,7 @@ from src.routers.payload.user_payload import UserPayload
 from src.services.user_service import UserService
 
 router = APIRouter(
-    prefix='/api/v0.1.0/users',
+    prefix='/api/v1/users',
     tags=['users']
 )
 user_service = UserService.get_instance()

@@ -7,7 +7,7 @@ from redis import asyncio as aioredis
 
 from src.config import Config
 from src.persistence.database import Database
-from src.routers.user_route import router as user_router
+from src.routers.v1.user_route import router as user_router
 
 logging.basicConfig(
     level=logging.INFO,
