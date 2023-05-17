@@ -3,11 +3,11 @@ from uuid import UUID
 from fastapi import APIRouter
 from fastapi_cache.decorator import cache
 
-from src.routers.payload.user_payload import UserPayload
+from src.routers.v1.payload.user_payload import UserPayload
 from src.services.user_service import UserService
 
 router = APIRouter(
-    prefix='/api/v1/users',
+    prefix='/users',
     tags=['users']
 )
 user_service = UserService.get_instance()

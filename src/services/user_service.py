@@ -4,7 +4,7 @@ from uuid import UUID
 
 from src.persistence.models.user_model import UserModel
 from src.persistence.repository.user_repository import UserRepository
-from src.routers.payload.user_payload import UserPayload
+from src.routers.v1.payload.user_payload import UserPayload
 from src.services.results.user_result import UserResult
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ class UserService:
         user_model = await self.__user_repository.get_by_tg_id_and_deleted_false(
             user_dto.telegram_id)
         if not user_model:
-            user_model = UserModel()
+            user_model = UserModel().fill(user_dto)
             return UserResult(await self.__user_repository.create(user_model))
         user_model.fill(user_dto)
         return UserResult(await self.__user_repository.update(user_model))

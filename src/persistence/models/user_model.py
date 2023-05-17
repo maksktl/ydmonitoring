@@ -1,7 +1,7 @@
 from sqlalchemy import sql, Column, String, BIGINT
 
 from src.persistence.models.base_models import TimedBaseModel
-from src.routers.payload.user_payload import UserPayload
+from src.routers.v1.payload.user_payload import UserPayload
 
 
 class UserModel(TimedBaseModel):

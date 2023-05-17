@@ -7,7 +7,7 @@ from redis import asyncio as aioredis
 
 from src.config import Config
 from src.persistence.database import Database
-from src.routers.v1.user_route import router as user_router
+from src.routers import root_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -38,7 +38,7 @@ database = Database.get_instance()
 config = Config.get_instance('.env')
 
 # Register routers
-app.include_router(user_router)
+app.include_router(root_router)
 
 
 # TODO: add routers for other entities
