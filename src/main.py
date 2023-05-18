@@ -17,22 +17,12 @@ logging.basicConfig(
 
 # Application initialization
 app = FastAPI(
-    title="Last seen VPN backend service",
-    description="This is a backend service for the last seen VPN service",
+    title="Yandex disk API files monitoring",
+    description="API for Yandex disk files monitoring",
     version="0.1.0",
     docs_url="/",
     redoc_url=None,
     openapi_url="/openapi.json",
-    openapi_tags=[
-        {
-            "name": "vpn",
-            "description": "vpn related operations"
-        },
-        {
-            "name": "users",
-            "description": "User related operations"
-        }
-    ]
 )
 database = Database.get_instance()
 config = Config.get_instance('.env')
@@ -41,15 +31,8 @@ config = Config.get_instance('.env')
 app.include_router(root_router)
 
 
-# TODO: add routers for other entities
-
-
 @app.on_event("startup")
 async def startup():
-    #  Initialize cache
-    redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
-    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
-
     #   Connect to database
     await database.setup(
         f'postgresql+asyncpg://{config.db.user}:{config.db.password}@{config.db.host}/{config.db.database}?client_encoding=utf8')
